@@ -186,7 +186,6 @@ namespace Dear_ImGui_Sample
             _shader.Use();
 
             // Change triangle color
-            float greenValue = _color.X;
             int vertexColorLocation = GL.GetUniformLocation(_shader.Handle, "ourColor");
             GL.Uniform4(vertexColorLocation, _color.X, _color.Y, _color.Z, 1.0f);
 
