@@ -1,2 +1,7 @@
-# Dear-ImGui-OpenTK-Sample
-Dear ImGui OpenTK Sample
+# Dear Imgui Sample using OpenTK
+
+## OpenTK 4
+
+This version of the repo is targeting OpenTK 4. 
+The minimum OpenGL version is 3.3.
+

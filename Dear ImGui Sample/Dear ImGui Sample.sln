@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dear ImGui Sample", "Dear ImGui Sample.csproj", "{A5F4CBC5-6314-493B-9A54-756B8E2E5022}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5F4CBC5-6314-493B-9A54-756B8E2E5022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F4CBC5-6314-493B-9A54-756B8E2E5022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F4CBC5-6314-493B-9A54-756B8E2E5022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F4CBC5-6314-493B-9A54-756B8E2E5022}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40370CB2-C0F4-4653-B469-E12C615B243E}
+	EndGlobalSection
+EndGlobal
