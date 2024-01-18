@@ -21,8 +21,6 @@ namespace Dear_ImGui_Sample
         private int _indexBuffer;
         private int _indexBufferSize;
 
-        //private Texture _fontTexture;
-
         private int _fontTexture;
 
         private int _shader;

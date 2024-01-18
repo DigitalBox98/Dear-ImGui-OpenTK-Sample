@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ImGuiNET;
-using System.Drawing;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using System.Diagnostics;
 
 namespace Dear_ImGui_Sample
 {
     public class Window : GameWindow
     {
         ImGuiController _controller;
-
-        // Initialise the Scale Factor
-        float scaleFactorX = 1.0f;
-        float scaleFactorY = 1.0f;
 
         System.Numerics.Vector3 _color = new System.Numerics.Vector3(0.5f,0.5f,0.0f);
 
@@ -50,7 +40,7 @@ namespace Dear_ImGui_Sample
         private Shader _shader;
 
 
-        public Window() : base(GameWindowSettings.Default, new NativeWindowSettings() { Size = new Vector2i(1024, 768), APIVersion = new Version(3, 3) })
+        public Window() : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = new Vector2i(1024, 768), APIVersion = new Version(3, 3) })
         { }
 
         protected override void OnLoad()
@@ -135,8 +125,10 @@ namespace Dear_ImGui_Sample
 
             // Setup is now complete! Now we move to the OnRenderFrame function to finally draw the triangle.
 
-            // Get the Scale Factor of the Monitor
-            this.TryGetCurrentMonitorScale(out scaleFactorX, out scaleFactorY);
+            // Get the FrameBuffer size and compute the scale factor for ImGuiController
+            Vector2i fb = this.FramebufferSize;
+            int scaleFactorX = fb.X / ClientSize.X;
+            int scaleFactorY = fb.Y / ClientSize.Y;
 
             // Instanciate the ImGuiController with the right Scale Factor
             _controller = new ImGuiController(ClientSize.X, ClientSize.Y, scaleFactorX, scaleFactorY);
@@ -148,7 +140,8 @@ namespace Dear_ImGui_Sample
             base.OnResize(e);
 
             // Update the opengl viewport
-            GL.Viewport(0, 0, (int) (ClientSize.X * scaleFactorX), (int) (ClientSize.Y * scaleFactorY));
+            Vector2i fb = this.FramebufferSize;
+            GL.Viewport(0, 0, fb.X, fb.Y);
 
             // Tell ImGui of the new size
             _controller.WindowResized(ClientSize.X, ClientSize.Y);
@@ -169,10 +162,6 @@ namespace Dear_ImGui_Sample
             // However, we only modify the color, so ColorBufferBit is all we need to clear.
             //GL.ClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-            // Enable Docking
-            //ImGui.DockSpaceOverViewport();
-
-            //ImGui.ShowDemoWindow();
             ImGui.Begin("Color chooser");
             ImGui.ColorEdit3("Triangle color", ref _color);
             ImGui.End();
@@ -207,12 +196,12 @@ namespace Dear_ImGui_Sample
             // This avoids screen tearing, a visual artifact that can happen if the buffer is modified while being displayed.
             // After drawing, call this function to swap the buffers. If you don't, it won't display what you've rendered.
 
-
             _controller.Render();
 
             ImGuiController.CheckGLError("End of frame");
 
             SwapBuffers();
+
         }
 
         protected override void OnTextInput(TextInputEventArgs e)
