@@ -9,8 +9,6 @@ namespace Dear_ImGui_Sample
 {
     public class Window : GameWindow
     {
-        ImGuiController _controller;
-
         System.Numerics.Vector3 _color = new System.Numerics.Vector3(0.5f,0.5f,0.0f);
 
         // Create the vertices for our triangle. These are listed in normalized device coordinates (NDC)
@@ -39,6 +37,8 @@ namespace Dear_ImGui_Sample
         // What shaders are and what they're used for will be explained later in this tutorial.
         private Shader _shader;
 
+        // Controller for ImGUI 
+        ImGuiController _controller;
 
         public Window() : base(GameWindowSettings.Default, new NativeWindowSettings() { ClientSize = new Vector2i(1024, 768), APIVersion = new Version(3, 3) })
         { }
@@ -47,7 +47,7 @@ namespace Dear_ImGui_Sample
         {
             base.OnLoad();
 
-            Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+            changeWindowTitle();
 
             // This will be the color of the background after we clear it, in normalized colors.
             // Normalized colors are mapped on a range of 0.0 to 1.0, with 0.0 representing black, and 1.0 representing
@@ -125,15 +125,11 @@ namespace Dear_ImGui_Sample
 
             // Setup is now complete! Now we move to the OnRenderFrame function to finally draw the triangle.
 
-            // Get the FrameBuffer size and compute the scale factor for ImGuiController
-            Vector2i fb = this.FramebufferSize;
-            int scaleFactorX = fb.X / ClientSize.X;
-            int scaleFactorY = fb.Y / ClientSize.Y;
-
-            // Instanciate the ImGuiController with the right Scale Factor
-            _controller = new ImGuiController(ClientSize.X, ClientSize.Y, scaleFactorX, scaleFactorY);
+            initImGuiController();
 
         }
+
+
 
         protected override void OnResize(ResizeEventArgs e)
         {
@@ -218,5 +214,23 @@ namespace Dear_ImGui_Sample
 
             _controller.MouseScroll(e.Offset);
         }
+
+        private void changeWindowTitle()
+        {
+            Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
+        }
+
+        private void initImGuiController()
+        {
+            // Get the FrameBuffer size and compute the scale factor for ImGuiController
+            Vector2i fb = this.FramebufferSize;
+            int scaleFactorX = fb.X / ClientSize.X;
+            int scaleFactorY = fb.Y / ClientSize.Y;
+
+            // Instanciate the ImGuiController with the right Scale Factor
+            _controller = new ImGuiController(ClientSize.X, ClientSize.Y, scaleFactorX, scaleFactorY);
+        }
+
+
     }
 }
